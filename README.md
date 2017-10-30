@@ -1,6 +1,14 @@
 # bcmImageTool
 Broadcom Image Builder tool
 
+## Firmware structure
+| Size (byte)  | Name | Description |
+| :----------: | ---- | ------- |
+| 256 | Tag (header) | Described below |
+| CFE Length in Tag | CFE | May not be present |
+| RootFS Length in Tag | Root File System | SquashFS, CramFS or Jffs2 |
+| Kernel Length in Tag | Kernel | LZMA compressed kernel |
+
 ## Tag (header) structure
 | Size (byte)  | Type | Name | Description |
 | :----------: | ---- | ---- | ------- |
