@@ -1,6 +1,34 @@
 # bcmImageTool
 Broadcom Image Builder tool
 
+## Usage
+### Info  
+Show image info    
+`./bcmImageTool.py info -i DSL-2750B.bin`
+
+### Split  
+Extract rootfs and kernel from an image     
+`./bcmImageTool.py split -i DSL-2750B.bin -d extract`
+
+### Merge
+Create a new image with custom rootfs and kernel     
+`./bcmImageTool.py merge -i DSL-2750B.bin -o Custom-2750B.bin -r extract/rootfs -k extract/kernel`
+
+## Examples
+### Customize a firmware
+```
+# Extract file system
+./bcmImageTool.py split -i Original_FW.bin -d extract
+binwalk -e extract/rootfs
+
+# Edit files inside extract/_rootfs.extract/squashfs-root
+
+# Rebuild image
+sudo ./makeDevs extract/_rootfs.extract/squashfs-root
+./mksquashfs extract/_rootfs.extract/squashfs-root extract/rootfs.new -be -noappend -all-root -b 65536
+./bcmImageTool.py merge -i Original_FW.bin -o Custom_FW.bin -k extract/kernel -r extract/rootfs.new
+```
+
 ## Firmware structure
 | Size (byte)  | Name | Description |
 | :----------: | ---- | ------- |
