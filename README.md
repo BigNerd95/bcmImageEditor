@@ -19,5 +19,5 @@ Broadcom Image Builder tool
 | 10 | String | Kernel Length | Kernel size in clear ASCII text (if non zero) |
 |  4 | String | Image Sequence | Incrments everytime an image is flashed (?) |
 | 74 | None | Reserved | Reserved for later use |
-| 20 | String | Image Validation Token | JamCRC of: total image, rootFS, kernel |
-| 20 | String | Tag Validation Token | JamCRC of Tag from Tag Version to the end of Image Validation Token |
+| 20 | Byte Array | Image Validation Token | JamCRC of: total image, rootFS, kernel |
+| 20 | Byte Array | Tag Validation Token | JamCRC of Tag from Tag Version to the end of Image Validation Token |
