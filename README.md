@@ -54,3 +54,10 @@ You can find a guide about creating a custom firmware [here](GUIDE.md)
 | 42 | None | Reserved | Reserved for later use |
 | 20 | Byte Array | Image Validation Token | JamCRC of: total image, rootFS, kernel |
 | 20 | Byte Array | Tag Validation Token | JamCRC of Tag from Tag Version to the end of Image Validation Token |
+
+## Dependences
+- crcmod  
+- struct  
+- argparse  
+
+(Install them with `pip3`)
