@@ -23,54 +23,13 @@ Create a new image with custom rootfs and kernel
 `./bcmImageTool.py merge -i DSL-2750B.bin -o Custom-2750B.bin -r extract/rootfs -k extract/kernel`
 
 ## Examples
-### Customize a firmware
-
-Tested on D-Link DSL-2750B D1 EU with firmware version 1.02
-
-1) Flash original firmware  
-Skip this step if your modem router is already running with the firmware version you are going to customize.  
-
-1) Extract file system and kernel from the original firmware  
-`./bcmImageTool.py split -i Original_FW.bin -d extract`  
-This will create a folder named `extract` with `kernel` and `rootfs` files.  
-
-2) Decompress file system  
-`sudo binwalk -e extract/rootfs`  
-Use sudo or `/dev` will be empty and you will make a corrupted custom firmware!  
-
-3) Edit files inside `extract/_rootfs.extract/squashfs-root`  
-You can edit `/etc/profile` to run code at startup.  
-
-4) Compress file system  
-`./mksquashfs extract/_rootfs.extract/squashfs-root extract/rootfs.new -be -noappend -all-root -b 65536`  
-Use mksquashfs version 4.0 (2009/04/05) (precompiled binary is provided in this repo).  
-(DSL-2750B uses SquashFS, but different hardware may have JFFS2 or CramFS file system).  
-(Check the Block size and the Endianness too!).  
-
-5) Rebuild image  
-`./bcmImageTool.py merge -i Original_FW.bin -o Custom_FW.bin -k extract/kernel -r extract/rootfs.new`  
-This will create a new firmware with the custom file system and the original kernel.  
-
-6) Flash custom firmware  
-Upgrade the firmware using Custom_FW.bin from the web interface like an official firmware.  
-
-## Unbrick
-My tool is NOT touching CFE bootloader, so if your modem router isn't working after flashing, don't worry!  
-You can recover it reinstalling the official firmware.  
-(This will reset your configurations to factory defaults)  
-1) Power off the modem router
-2) Press and keep pressed the reset button
-3) Turn on the modem router
-4) Keep pressed the reset button until power led becomes red
-5) Connect a PC via LAN and set a static IP address like 192.168.1.5 (or 192.168.0.5)
-7) Open browser to 192.168.1.1 (or 192.168.0.1)
-8) Upload the official firmware
+You can find a guide about creating a custom firmware [here](GUIDE.md)
 
 ## Firmware structure
 | Size (byte)  | Name | Description |
 | :----------: | ---- | ------- |
 | 256 | Tag (header) | Described below |
-| CFE Length in Tag | CFE | May not be present |
+| CFE Length in Tag | CFE bootloader | May not be present |
 | RootFS Length in Tag | Root File System | SquashFS, CramFS or Jffs2 |
 | Kernel Length in Tag | Kernel | LZMA compressed kernel |
 
