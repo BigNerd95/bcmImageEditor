@@ -60,15 +60,15 @@ def split(input_file, directory):
     path = os.path.join(directory, '')
     if os.path.exists(path):
         print("Directory", os.path.basename(path) , "already exists, cannot split!")
-        return 
-    
+        return
+
     #cfe    = get_data(input_file, Broadcom.TAG_LEN, tag.cfeLen)
     rootFS = get_data(input_file, Broadcom.TAG_LEN + tag.cfeLen, tag.rootfsLen)
     kernel = get_data(input_file, Broadcom.TAG_LEN + tag.cfeLen + tag.rootfsLen, tag.kernelLen)
 
     #create_write_file(path + 'cfe', cfe)
-    create_write_file(path + 'rootfs.img', rootFS)
-    create_write_file(path + 'vmlinux.lz', kernel)
+    create_write_file(path + 'rootfs', rootFS)
+    create_write_file(path + 'kernel', kernel)
 
     input_file.close()
 
@@ -84,14 +84,14 @@ def parse_cli():
     parser = ArgumentParser(description='** Broadcom Image Tools by BigNerd95 **')
     subparser = parser.add_subparsers(dest='subparser_name')
 
-    infoParser = subparser.add_parser('info', help='Broadcom Image info')
+    infoParser = subparser.add_parser('info', help='Print Tag (header) info')
     infoParser.add_argument('-i', '--input', required=True, metavar='INPUT_FILE', type=FileType('rb'))
 
-    splitParser = subparser.add_parser('split', help='Broadcom Image splitter')
+    splitParser = subparser.add_parser('split', help='Extract rootfs and kernel from image')
     splitParser.add_argument('-i', '--input', required=True, metavar='INPUT_FILE', type=FileType('rb'))
     splitParser.add_argument('-d', '--directory', required=True, metavar='EXTRACT_DIRECTORY')
 
-    mergeParser = subparser.add_parser('merge', help='Broadcom Image merge')
+    mergeParser = subparser.add_parser('merge', help='Create a new image with custom rootfs and kernel using the original image as base')
     mergeParser.add_argument('-i', '--input',  required=True, metavar='INPUT_FILE', type=FileType('rb'))
     mergeParser.add_argument('-r', '--rootfs', required=True, metavar='ROOTFS_FILE', type=FileType('rb'))
     mergeParser.add_argument('-k', '--kernel', required=True, metavar='KERNEL_FILE', type=FileType('rb'))

@@ -39,17 +39,19 @@ class Tag():
         self.kernelLen  = int(toStr(fields[12]))
         self.imageSeq   = toStr(fields[13])
         self.imageVer   = toStr(fields[14])
-        self.reserved   = fields[15]  
+        self.reserved   = fields[15]
         # Binary fields
         self.imageToken = fields[16]
         self.tagToken   = fields[17]
 
         # Extract JamCRC from binary fields
-        (self.imageCRC, 
-        self.rootfsCRC, 
-        self.kernelCRC) = self.endianUnpack("III", self.imageToken[:12])
+        (self.imageCRC,
+        self.rootfsCRC,
+        self.kernelCRC,
+        _, _)           = self.endianUnpack("5I", self.imageToken)
 
-        self.tagCRC     = self.endianUnpack("I", self.tagToken[:4])[0]
+        (self.tagCRC,
+        _, _, _, _)     = self.endianUnpack("5I", self.tagToken)
 
     def endianPack(self, format, *fields):
         if self.bigEndian:
@@ -67,15 +69,15 @@ class Tag():
         self.tagCRC = jamCRC(self.__toBin__()[:-20])
 
     def __toBin__(self):
-        self.imageToken = self.endianPack("IIIII", 
+        self.imageToken = self.endianPack("5I",
             self.imageCRC,
-            self.rootfsCRC, 
+            self.rootfsCRC,
             self.kernelCRC,
             0,
             0
         )
 
-        self.tagToken = self.endianPack("IIIII",
+        self.tagToken = self.endianPack("5I",
             self.tagCRC,
             0,
             0,
@@ -83,22 +85,22 @@ class Tag():
             0
         )
 
-        bindata = struct.pack("4s20s14s6s16s2s10s12s10s12s10s12s10s4s32s"+str(RESERVED_LEN)+"s20s20s", 
-            toBytes(self.tagVersion), 
-            toBytes(self.signature1),
-            toBytes(self.signature2),
-            toBytes(self.chipID),
-            toBytes(self.boardID),
-            toBytes("1" if self.bigEndian else "0"),
-            toBytes(self.imageLen),
-            toBytes(self.cfeAddr),
-            toBytes(self.cfeLen),
-            toBytes(self.rootfsAddr),
-            toBytes(self.rootfsLen),
-            toBytes(self.kernelAddr),
-            toBytes(self.kernelLen),
-            toBytes(self.imageSeq),
-            toBytes(self.imageVer),
+        bindata = struct.pack("4s20s14s6s16s2s10s12s10s12s10s12s10s4s32s"+str(RESERVED_LEN)+"s20s20s",
+            toBytes(self.tagVersion)[:3],
+            toBytes(self.signature1)[:19],
+            toBytes(self.signature2)[:13],
+            toBytes(self.chipID)[:5],
+            toBytes(self.boardID)[:15],
+            toBytes("1" if self.bigEndian else "0")[:1],
+            toBytes(self.imageLen)[:9],
+            toBytes(self.cfeAddr)[:11],
+            toBytes(self.cfeLen)[:9],
+            toBytes(self.rootfsAddr)[:11],
+            toBytes(self.rootfsLen)[:9],
+            toBytes(self.kernelAddr)[:11],
+            toBytes(self.kernelLen)[:9],
+            toBytes(self.imageSeq)[:3],
+            toBytes(self.imageVer)[:31],
             self.reserved,
             self.imageToken,
             self.tagToken
@@ -127,6 +129,4 @@ class Tag():
                "Image jamCRC:       " + str(hex(self.imageCRC))    + "\n" \
                "RootFS jamCRC:      " + str(hex(self.rootfsCRC))   + "\n" \
                "Kernel jamCRC:      " + str(hex(self.kernelCRC))   + "\n" \
-               "Tag jamCRC:         " + str(hex(self.tagCRC))      + "\n" 
-
-
+               "Tag jamCRC:         " + str(hex(self.tagCRC))      + "\n"
