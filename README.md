@@ -1,5 +1,5 @@
-# bcmImageTool
-Broadcom Image Builder tool  
+# bcmImageEditor
+Broadcom Image Editor tool  
 
 With this tool you can edit official firmwares of some modem router vendors like D-Link.  
 This tool can change the kernel and the file system of an official firmware.  
@@ -12,15 +12,15 @@ So I left this way ant decided to customize a working official firmware.
 ## Usage
 ### Info  
 Show image info    
-`./bcmImageTool.py info -i DSL-2750B.bin`
+`./bcmImageEditor.py info -i DSL-2750B.bin`
 
 ### Split  
 Extract rootfs and kernel from an image     
-`./bcmImageTool.py split -i DSL-2750B.bin -d extract`
+`./bcmImageEditor.py split -i DSL-2750B.bin -d extract`
 
 ### Merge
 Create a new image with custom rootfs and kernel     
-`./bcmImageTool.py merge -i DSL-2750B.bin -o Custom-2750B.bin -r extract/rootfs -k extract/kernel`
+`./bcmImageEditor.py merge -i DSL-2750B.bin -o Custom-2750B.bin -r extract/rootfs -k extract/kernel`
 
 ## Examples
 You can find a guide about creating a custom firmware [here](GUIDE.md)
