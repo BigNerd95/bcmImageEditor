@@ -10,7 +10,7 @@ In case you make a bad custon firmware and you have to unbrick your modem router
 Skip this step if your modem router is already running with the firmware version you are going to customize.  
 
 3) Extract file system and kernel from the original firmware  
-`./bcmImageTool.py split -i Original_FW.bin -d extract`  
+`./bcmImageEditor.py split -i Original_FW.bin -d extract`  
 This will create a folder named `extract` with `kernel` and `rootfs` files.  
 
 4) Decompress file system  
@@ -27,7 +27,7 @@ Use mksquashfs version 4.0 (2009/04/05) (precompiled binary is provided in this 
 (Check the Block size and the Endianness too!).  
 
 7) Rebuild image  
-`./bcmImageTool.py merge -i Original_FW.bin -o Custom_FW.bin -k extract/kernel -r extract/rootfs.new`  
+`./bcmImageEditor.py merge -i Original_FW.bin -o Custom_FW.bin -k extract/kernel -r extract/rootfs.new`  
 This will create a new firmware with the custom file system and the original kernel.  
 
 8) Flash custom firmware  
