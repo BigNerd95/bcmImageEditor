@@ -6,7 +6,11 @@ Tested on D-Link DSL-2750B D1 EU with firmware version 1.02
 1) Backup configurations  
 In case you make a bad custon firmware and you have to unbrick your modem router, you can restore your configs.
 
-2) Flash original firmware  
+2) Download the original firmware  
+You can find the latest version of your modem on dlink's ftp servers (ftp://ftp.dlink.eu/Products/dsl/).  
+For mine I used this one ftp://ftp.dlink.eu/Products/dsl/dsl-2750b/driver_software/DSL-2750B_HW_D1_EU_1.02_05292014_ITA.bin  
+
+3) Flash the original firmware  
 Skip this step if your modem router is already running with the firmware version you are going to customize.  
 
 3) Extract file system and kernel from the original firmware  
