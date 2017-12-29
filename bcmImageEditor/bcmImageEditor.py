@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# Broadcom Image Tools by BigNerd95
+# Broadcom Image Editor by BigNerd95
 
 import sys, os, struct, Broadcom
 from argparse import ArgumentParser, FileType
@@ -81,7 +81,7 @@ def info(input_file):
     input_file.close()
 
 def parse_cli():
-    parser = ArgumentParser(description='** Broadcom Image Tools by BigNerd95 **')
+    parser = ArgumentParser(description='** Broadcom Image Editor by BigNerd95 **')
     subparser = parser.add_subparsers(dest='subparser_name')
 
     infoParser = subparser.add_parser('info', help='Print Tag (header) info')
