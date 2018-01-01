@@ -1,7 +1,7 @@
 # bcmImageEditor
 Broadcom Image Editor tool  
 
-With this tool you can edit official firmwares of some modem router vendors like D-Link.  
+With this tool you can edit official firmwares of some modem router (like D-Link) created by bcmImageBuilder.  
 This tool can change the kernel and the file system of an official firmware.  
 It's better to flash the official firmware and then create a custom firmware to be sure your modem router is running a compatible CFE bootloader.  
 
