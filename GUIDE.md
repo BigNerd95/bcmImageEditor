@@ -2,6 +2,7 @@
 ### Customize a firmware
 
 Tested on D-Link DSL-2750B D1 EU with firmware version 1.02
+(You need to use Linux)
 
 1) Backup configurations  
 In case you make a bad custon firmware and you have to unbrick your modem router, you can restore your configs.
