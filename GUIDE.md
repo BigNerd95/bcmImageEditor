@@ -1,7 +1,7 @@
 ## Examples
 ### Customize a firmware
 
-Tested on D-Link DSL-2750B D1 EU with firmware version 1.02
+Tested on D-Link DSL-2750B D1 EU with firmware version 1.02  
 (You need to use Linux)
 
 1) Backup configurations  
