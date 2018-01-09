@@ -26,6 +26,7 @@ def merge(input_file, rootfs_file, kernel_file, output_file):
     print(tag)
     print()
 
+    print("Merging image...\n")
     original_cfe  = get_data(input_file, Broadcom.TAG_LEN, tag.cfeLen) # may be empty
     custom_rootfs = rootfs_file.read()
     custom_kernel = kernel_file.read()
