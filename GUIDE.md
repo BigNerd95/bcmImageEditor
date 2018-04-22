@@ -57,5 +57,5 @@ With this custom fw you can launch script at each boot in 2 way:
 1) insert a script called `myscript.sh` in the root of the usb drive
 #### Using the NVRAM
 1) write somewhere a script (usb drive or modem /tmp)
-2) login into the mode using telnet and launch `/etc/mods/update_myscript.sh mynewscript.sh`  
+2) login into the modem using telnet and launch `/etc/mods/update_myscript.sh mynewscript.sh`  
 (The content of `mynewscript.sh` will be written in the nvram, so you can delete `mynewscript.sh`).
