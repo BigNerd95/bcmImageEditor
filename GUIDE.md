@@ -49,3 +49,13 @@ You can recover it reinstalling the official firmware.
 5) Connect a PC via LAN and set a static IP address like 192.168.1.5 (or 192.168.0.5)
 7) Open browser to 192.168.1.1 (or 192.168.0.1)
 8) Upload the official firmware
+
+## Prepared Custom firmware  
+You can find a Custom firmware for D-Link DSL-2750B D1 EU [here](custom_fw/Custom_DSL-2750B.bin).  
+With this custom fw you can launch script at each boot in 2 way:
+#### Using USB drive  
+1) insert a script called `myscript.sh` in the root of the usb drive
+#### Using the NVRAM
+1) write somewhere a script (usb drive or modem /tmp)
+2) login into the mode using telnet and launch `/etc/mods/update_myscript.sh mynewscript.sh`  
+(The content of `mynewscript.sh` will be written in the nvram, so you can delete `mynewscript.sh`).
