@@ -33,7 +33,8 @@ Use mksquashfs version 4.0 (2009/04/05) (precompiled binary is provided in this 
 
 7) Rebuild image  
 `./bcmImageEditor.py merge -i Original_FW.bin -o Custom_FW.bin -k extract/kernel -r extract/rootfs.new`  
-This will create a new firmware with the custom file system and the original kernel.  
+This will create a new firmware with the custom file system and the original kernel. It is possible
+to indicate a custom signature in case your firmware needs one with the option ``--signature``.
 
 8) Flash custom firmware  
 Upgrade the firmware using Custom_FW.bin from the web interface like an official firmware.  
