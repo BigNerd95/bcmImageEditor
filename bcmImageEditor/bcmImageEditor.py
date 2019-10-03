@@ -18,7 +18,7 @@ def create_write_file(path, data):
 # main functions #
 ##################
 
-def merge(input_file, rootfs_file, kernel_file, output_file):
+def merge(input_file, rootfs_file, kernel_file, output_file, signature2=None):
     print("** Broadcom Image merge **")
     header = get_data(input_file, 0, Broadcom.TAG_LEN)
     tag = Broadcom.Tag(header)
@@ -33,6 +33,7 @@ def merge(input_file, rootfs_file, kernel_file, output_file):
     newImage = original_cfe + custom_rootfs + custom_kernel
 
     # update header fields
+    tag.signature2 = signature2 if signature2 else tag.signature2
     tag.imageLen   = len(newImage)
     tag.rootfsLen  = len(custom_rootfs)
     tag.kernelAddr = tag.rootfsAddr + len(custom_rootfs)
@@ -97,6 +98,7 @@ def parse_cli():
     mergeParser.add_argument('-r', '--rootfs', required=True, metavar='ROOTFS_FILE', type=FileType('rb'))
     mergeParser.add_argument('-k', '--kernel', required=True, metavar='KERNEL_FILE', type=FileType('rb'))
     mergeParser.add_argument('-o', '--output', required=True, metavar='OUTPUT_FILE', type=FileType('wb'))
+    mergeParser.add_argument('-s', '--signature',     required=False, metavar='SIGNATURE_2', type=str)
 
     if len(sys.argv) < 2:
         parser.print_help()
@@ -110,7 +112,7 @@ def main():
     elif args.subparser_name == 'split':
         split(args.input, args.directory)
     elif args.subparser_name == 'merge':
-        merge(args.input, args.rootfs, args.kernel, args.output)
+        merge(args.input, args.rootfs, args.kernel, args.output, args.signature)
 
 if __name__ == '__main__':
     main()
